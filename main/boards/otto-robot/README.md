@@ -73,7 +73,7 @@ otto 机器人具有丰富的动作能力，包括行走、转向、跳跃、摇
   #### 编译配置
     idf.py menuconfig 
   #### 清空之前的编译文件
-    df.py fullclean 
+    idf.py fullclean 
   #### 编译
     idf.py build
   #### 将.bin文件merge到一个.bin固件文件中
