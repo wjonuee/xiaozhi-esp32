@@ -65,3 +65,19 @@ otto 机器人具有丰富的动作能力，包括行走、转向、跳跃、摇
 例：向前走/向前走5步/快速向前
 说明：小智控制机器人动作是创建新的任务在后台控制，如让机器人向前走10步，设置完，小智会进入听取语音指令状态，此时机器人仍在向前走，可以通过 "停止" 语音指令 停下otto
 
+### 编译
+  #### 切换到otto robot仓库下
+    cd ~/workspace/code/otto-robot/
+  #### source esp idf环境
+    . ~/esp/esp-idf/export.sh
+  #### 编译配置
+    idf.py menuconfig 
+  #### 清空之前的编译文件
+    df.py fullclean 
+  #### 编译
+    idf.py build
+  #### 将.bin文件merge到一个.bin固件文件中
+    esptool.py --chip esp32s3 merge_bin -o merged-flash.bin --flash_mode dio --flash_size 16MB 0x0 build/bootloader/bootloader.bin 0x100000 build/xiaozhi.bin 0x8000 build/partition_table/partition-table.bin 0xd000 build/ota_data_initial.bin 0x10000 build/srmodels/srmodels.bin
+  #### 升级固件到板子上
+    python3 -m esptool --chip esp32s3 -p /dev/ttyACM0 -b 115200 write_flash 0x0 merged-flash.bin
+
